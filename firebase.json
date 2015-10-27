@@ -1,0 +1,10 @@
+{
+  "firebase": "facepad",
+  "public": ".",
+  "ignore": [
+    "firebase.json",
+    "**/.*",
+    "**/node_modules/**",
+    "index2.html"
+  ]
+}

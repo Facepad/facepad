@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <title>FacePad</title>
+  <script src='https://cdn.firebase.com/js/client/2.2.1/firebase.js'></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+  <link rel="stylesheet" href="css/minimal.css" type="text/css">
+  <link rel="stylesheet" href="css/style.css" type="text/css">
+</head>
+
+<body>
+  <h1>Facepad</h1>
+  <h3>Post a Message</h3>
+  <div id='messagesDiv'></div>
+  <input type='text' id='nameInput' placeholder='Name' size='15'>
+  <br>
+  <input type='text' id='messageInput' placeholder='Type Message, hit &#39;Enter&#39; to post' size='50'>
+  <script>
+    var myDataRef = new Firebase('https://facepad.firebaseio.com/'); // web/data ?
+
+    $('#messageInput').keypress(function(e) {
+      if (e.keyCode == 13) {
+        var name = $('#nameInput').val();
+        var text = $('#messageInput').val();
+        myDataRef.push({ //.set replaces
+          name: name,
+          text: text
+        });
+        $('#messageInput').val('');
+      }
+    });
+
+    myDataRef.on('child_added', function(snapshot) {
+      var message = snapshot.val();
+      displayChatMessage(message.name, message.text);
+    });
+
+    function displayChatMessage(name, text) {
+      $('<div/>').text(text).prepend($('<em/>').text(name + ': ')).appendTo($('#messagesDiv'));
+      $('#messagesDiv')[0].scrollTop = $('#messagesDiv')[0].scrollHeight;
+    };
+  </script>
+</body>
+
+</html>

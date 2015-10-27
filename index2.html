@@ -1,0 +1,23 @@
+myDataRef.on("child_removed", function(snapshot) {
+  var deletedPost = snapshot.val();
+  would need => removeChatMessage(message.name, message.text); // function here
+});
+
+ref.on("child_removed", function(snapshot) {
+  var deletedPost = snapshot.val();
+  would need => changedChatMessage(message.name, message.text); // function here
+});
+
+data map:
+users
+  login
+    name
+    friends
+      login
+      name
+messages
+  user
+  message
+  picture
+  id (time stamp)
+?groups?
